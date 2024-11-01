@@ -150,7 +150,15 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             gradients for a given loss function type np.ndarray (n-dimensional array)
         """
-        
+        # compute predictions with sigmoid function
+        z = np.dot(X,self.W)
+        y_pred = 1 / (1 + np.exp(-z))
+        # calculate the error
+        error = y_pred - y
+        # compute the gradient
+        gradient = (1 / X.shape[0]) * np.dot(X.T,error)
+        # return gradient
+        return gradient
         
         pass
     
