@@ -176,6 +176,16 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             average loss 
         """
+        # compute predictions with sigmoid function
+        z = np.dot(X,self.W)
+        y_pred = 1 / (1 + np.exp(-z))
+        # account for 0 and 1 by setting vlaues lower than eps and higher than 1 - eps to eps and 1 - eps
+        eps = 1e-20
+        y_pred = np.clip(y_pred, eps, 1 - eps)
+        # compute the average loss
+        loss = - np.mean(y * np.log(y_pred) + (1 - y) * np.log(1-y_pred))
+        # return the average loss
+        return loss
         pass
     
     def make_prediction(self, X) -> np.array:
