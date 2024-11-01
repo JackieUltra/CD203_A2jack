@@ -200,7 +200,14 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             y_pred for given X
         """
-
+        # adding bias term
+        X = np.hstack([X, np.ones((X.shape[0], 1))])
+        # compute the linear features and weights
+        z = np.dot(X, self.W)
+        # apply the sigmoid function
+        y_pred = 1 / (1 + np.exp(-z))
+        # return the predictions binary values of 0 or 1 with 0.5 threshold
+        return (y_pred >= 0.5).astype(int)
         pass
 
 
