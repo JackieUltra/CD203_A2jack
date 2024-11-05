@@ -179,11 +179,10 @@ class LogisticRegression(BaseRegressor):
         # compute predictions with sigmoid function
         z = np.dot(X,self.W)
         y_pred = 1 / (1 + np.exp(-z))
-        # account for 0 and 1 by setting vlaues lower than eps and higher than 1 - eps to eps and 1 - eps
-        eps = 1e-20
-        y_pred = np.clip(y_pred, eps, 1 - eps)
+        # account for 0 and 1
+        y_pred = np.clip(y_pred, 1e-10, 1 - 1e-10)
         # compute the average loss
-        loss = - np.mean(y * np.log(y_pred) + (1 - y) * np.log(1-y_pred))
+        loss = - (1 / len(y)) * np.sum(y * np.log(y_pred) + (1 - y) * np.log(1 - y_pred))
         # return the average loss
         return loss
         pass
@@ -200,14 +199,14 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             y_pred for given X
         """
-        # adding bias term
-        X = np.hstack([X, np.ones((X.shape[0], 1))])
         # compute the linear features and weights
         z = np.dot(X, self.W)
         # apply the sigmoid function
         y_pred = 1 / (1 + np.exp(-z))
-        # return the predictions binary values of 0 or 1 with 0.5 threshold
-        return (y_pred >= 0.5).astype(int)
+        # predictions binary values of 0 or 1 with 0.5 threshold
+        new_prediction = (y_pred >= 0.5).astype(int)
+        # return the prediction
+        return new_prediction
         pass
 
 
