@@ -23,7 +23,7 @@ X_train, X_val, y_train, y_val = utils.loadDataset(features=['Penicillin V Potas
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 # get x train weight
-X_train_weight = np.haystack([X_train, np.ones((X_train.shape[0],1))])
+X_train_weight = np.hstack([X_train, np.ones((X_train.shape[0],1))])
 X_val = sc.transform (X_val)
 log_test = LogisticRegression(num_feats=6, max_iter=10, tol=0.01, learning_rate=0.00001, batch_size=12)
 
