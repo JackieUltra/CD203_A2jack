@@ -150,8 +150,10 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             gradients for a given loss function type np.ndarray (n-dimensional array)
         """
-        # compute predictions with sigmoid function
-        y_pred = self.make_prediction(X)
+        # compute the linear features and weights
+        z = np.dot(X, self.W)
+        # apply the sigmoid function
+        y_pred = 1 / (1 + np.exp(-z))
         # calculate the error
         error = y_pred - y
         # compute the gradient
@@ -175,7 +177,10 @@ class LogisticRegression(BaseRegressor):
         Returns: 
             average loss 
         """
-        y_pred = self.make_prediction(X)
+        # compute the linear features and weights
+        z = np.dot(X, self.W)
+        # apply the sigmoid function
+        y_pred = 1 / (1 + np.exp(-z))
         # account for 0 and 1
         y_pred = np.clip(y_pred, 1e-10, 1 - 1e-10)
         # compute the average loss
@@ -206,6 +211,6 @@ class LogisticRegression(BaseRegressor):
         return y_pred
         pass
 
-
+        
 
     
