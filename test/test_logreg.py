@@ -30,9 +30,11 @@ log_test = LogisticRegression(num_feats=6, max_iter=10, tol=0.01, learning_rate=
 def test_updates():
 	# Check that your gradient is being calculated correctly
 	# What is a reasonable gradient? Is it exploding? Is it vanishing? 
-	
 	assert np.any(log_test.calculate_gradient(X_train_weight, y_train)) < 5000 and np.any(log_test.calculate_gradient(X_train_weight, y_train)) > 1e-8
 	
+	# Check that your loss function is correct and that 
+	# you have reasonable losses at the end of training
+	# What is a reasonable loss?
 	log_test.train_model(X_train, y_train, X_val, y_val)
 	assert log_test.loss_history_val[-1] < log_test.loss_history_val[0]
 	pass
